@@ -279,17 +279,35 @@ function getRandomFromArray(arr) {
 
 function setup() {
   // Set Canvas Size
-  cnv.width = window.innerWidth / 2;
-  cnv.height = window.innerHeight / 2;
+  cnv.width = window.innerWidth / 1.5;
+  cnv.height = window.innerHeight / 1.5;
 
   const rows = Math.floor(cnv.width / BLOCK_SIZE);
   const cols = Math.floor(cnv.height / BLOCK_SIZE);
 
   // Initialize Simulation State
-  state = new SimulationState(rows, cols, 0.90, 0.1, AStar);
+  state = new SimulationState(rows, cols, 0.9, 0.1, AStar);
 
   state.truePose.x = Math.floor(state.rows / 2);
   state.truePose.y = Math.floor(state.cols / 2);
+
+  let isOverlapping = true;
+
+  let x = state.truePose.x;
+  let y = state.truePose.y;
+
+  do {
+    x++;
+    y++;
+
+    state.truePose.x = x;
+    state.truePose.y = y;
+
+    if (state.world[x][y].type === 0) {
+      isOverlapping = false;
+    }
+
+  } while (isOverlapping)
 }
 
 function draw() {
@@ -354,12 +372,12 @@ function draw() {
   }
 
   // Debug
-  if (!state.path.length) {
-    state.goal = new Vector(
-      Math.floor(Math.random() * state.rows),
-      Math.floor(Math.random() * state.cols)
-    )
-  }
+  // if (!state.path.length) {
+  //   state.goal = new Vector(
+  //     Math.floor(Math.random() * state.rows),
+  //     Math.floor(Math.random() * state.cols)
+  //   )
+  // }
 
   state.next();
 }

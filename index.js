@@ -1,4 +1,4 @@
-const BLOCK_SIZE = 20;
+const BLOCK_SIZE = 25;
 
 const cnv = document.querySelector("canvas");
 const ctx = cnv.getContext("2d");
@@ -279,11 +279,11 @@ function getRandomFromArray(arr) {
 
 function setup() {
   // Set Canvas Size
-  cnv.width = window.innerWidth / 1.5;
-  cnv.height = window.innerHeight / 1.5;
+  cnv.width = window.innerWidth;
+  cnv.height = window.innerHeight;
 
-  const rows = Math.floor(cnv.width / BLOCK_SIZE);
-  const cols = Math.floor(cnv.height / BLOCK_SIZE);
+  const rows = Math.ceil(cnv.width / BLOCK_SIZE);
+  const cols = Math.ceil(cnv.height / BLOCK_SIZE);
 
   // Initialize Simulation State
   state = new SimulationState(rows, cols, 0.9, 0.1, AStar);
